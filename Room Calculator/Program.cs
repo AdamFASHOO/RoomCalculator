@@ -2,12 +2,19 @@
 {
     public static void Main()
     {
-        Console.WriteLine("Please enter the length of the classroom: ");
-        double length = double.Parse(Console.ReadLine());
-        Console.WriteLine("Please enter the width of the classroom: ");
-        double width = double.Parse(Console.ReadLine());
-        Console.WriteLine("Please enter the height of the classroom: ");
-        double height = double.Parse(Console.ReadLine());
+        bool goAgain = true;
+        while (goAgain)
+        {
+            RoomDeterminer();
+            goAgain = RunAgain();
+        }
+    }
+
+    public static void RoomDeterminer()
+    {
+        double length = double.Parse(GetUserInput("Please enter the length of the classroom: "));
+        double width = double.Parse(GetUserInput("Please enter the width of the classroom: "));
+        double height = double.Parse(GetUserInput("Please enter the height of the classroom: "));
 
         double area = length * width;
         double perimeter = 2 * (length + width);
@@ -31,8 +38,31 @@
         {
             Console.WriteLine("\nThis will be a large classroom.");
         }
+    }
 
+    public static string GetUserInput(string prompt)
+    {
+        Console.WriteLine(prompt);
+        string input = Console.ReadLine();
+        return input;
+    }
 
+    public static bool RunAgain()
+    {
+        string answer = GetUserInput("Would you like to measure another room? y/n").ToLower();
+        if (answer == "y")
+        {
+            return true;
+        }
+        else if (answer == "n")
+        {
+            return false;
+        }
+        else
+        {
+            Console.WriteLine("\nI'm sorry, I didn't understand that.");
+            return RunAgain();
+        }
     }
 }
 
